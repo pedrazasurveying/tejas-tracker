@@ -39,6 +39,32 @@ default_view = {
     "longitude": data["lon"].mean(),
     "zoom": 11
 }
+import pydeck as pdk
+
+st.subheader("📍 Project Locations")
+
+st.pydeck_chart(pdk.Deck(
+    map_style="mapbox://styles/mapbox/streets-v11",
+    initial_view_state=pdk.ViewState(
+        latitude=default_view["latitude"],
+        longitude=default_view["longitude"],
+        zoom=default_view["zoom"]
+    ),
+    layers=[
+        pdk.Layer(
+            "ScatterplotLayer",
+            data=data,
+            get_position='[lon, lat]',
+            get_radius=100,
+            get_fill_color='[255, 0, 0, 160]',
+            pickable=True
+        )
+    ],
+    tooltip={
+        "html": "<b>{project_name}</b><br/>Type: {type}<br/>Client: {client}<br/>Year: {year}<br/><a href='{one_drive_link}' target='_blank'>📁 Files</a>",
+        "style": {"backgroundColor": "gray", "color": "white"}
+    }
+))
 
 if search_term:
     try:
@@ -55,7 +81,6 @@ if search_term:
         
 # Map display
 st.subheader("📍 Project Locations")
-st.map(data[["lat", "lon"]], zoom=default_view["zoom"], latitude=default_view["latitude"], longitude=default_view["longitude"])
 
 # Table display
 st.subheader("🗂️ Project Metadata")
