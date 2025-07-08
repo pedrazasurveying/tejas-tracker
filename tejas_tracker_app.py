@@ -31,9 +31,31 @@ data = pd.DataFrame([
     }
 ])
 
+# Address search bar
+search_term = st.text_input("🔍 Search an address to center the map")
+
+default_view = {
+    "latitude": data["lat"].mean(),
+    "longitude": data["lon"].mean(),
+    "zoom": 11
+}
+
+if search_term:
+    try:
+        geolocator = Nominatim(user_agent="tejas_tracker")
+        location = geolocator.geocode(search_term)
+        if location:
+            default_view["latitude"] = location.latitude
+            default_view["longitude"] = location.longitude
+            default_view["zoom"] = 14
+        else:
+            st.warning("Address not found.")
+    except:
+        st.error("Geocoding error. Try again later.")
+        
 # Map display
 st.subheader("📍 Project Locations")
-st.map(data[["lat", "lon"]])
+st.map(data[["lat", "lon"]], zoom=default_view["zoom"], latitude=default_view["latitude"], longitude=default_view["longitude"])
 
 # Table display
 st.subheader("🗂️ Project Metadata")
