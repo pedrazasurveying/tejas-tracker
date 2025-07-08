@@ -44,7 +44,7 @@ import pydeck as pdk
 st.subheader("📍 Project Locations")
 
 st.pydeck_chart(pdk.Deck(
-    map_style="mapbox://styles/mapbox/streets-v11",
+    map_style="mapbox://styles/mapbox/satellite-streets-v11",
     initial_view_state=pdk.ViewState(
         latitude=default_view["latitude"],
         longitude=default_view["longitude"],
@@ -79,9 +79,6 @@ if search_term:
     except:
         st.error("Geocoding error. Try again later.")
         
-# Map display
-st.subheader("📍 Project Locations")
-
 # Table display
 st.subheader("🗂️ Project Metadata")
 st.dataframe(data.drop(columns=["lat", "lon"]))
