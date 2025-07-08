@@ -2,9 +2,12 @@ import streamlit as st
 import pandas as pd
 import pydeck as pdk
 from geopy.geocoders import Nominatim
+import os
+
+os.environ["MAPBOX_API_KEY"] = "pk.eyJ1IjoicGVkcmF6YXN1cnZleWluZyIsImEiOiJjbWN0eDFveG8wOGhpMm1vdHkyeTNzemlkIn0.y-mIMtwv_f_L4-BB6aW9qw"
 
 st.set_page_config(page_title="Tejas Project Tracker", layout="wide")
-st.title("📍 Tejas Surveying Project Tracker")
+st.title("Tejas Surveying Project Tracker")
 
 data = pd.DataFrame([
     {
@@ -44,7 +47,7 @@ import pydeck as pdk
 st.subheader("📍 Project Locations")
 
 st.pydeck_chart(pdk.Deck(
-    map_style="mapbox://styles/mapbox/satellite-streets-v11",
+    mamap_style="mapbox://styles/mapbox/light-v10",
     initial_view_state=pdk.ViewState(
         latitude=default_view["latitude"],
         longitude=default_view["longitude"],
