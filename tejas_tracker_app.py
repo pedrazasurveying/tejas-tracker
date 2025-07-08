@@ -42,12 +42,11 @@ default_view = {
     "longitude": data["lon"].mean(),
     "zoom": 11
 }
-import pydeck as pdk
 
-st.subheader("📍 Project Locations")
+st.subheader("Project Locations")
 
 st.pydeck_chart(pdk.Deck(
-    mamap_style="mapbox://styles/mapbox/light-v10",
+    map_style="mapbox://styles/mapbox/light-v10",
     initial_view_state=pdk.ViewState(
         latitude=default_view["latitude"],
         longitude=default_view["longitude"],
